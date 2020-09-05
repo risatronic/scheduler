@@ -1,8 +1,12 @@
 import React from "react";
 
-// const classNames = require('classnames');
+
 
 export default function Show(props) {
+  function confirm(){
+    props.onConfirm();
+  }
+
   return <main className="appointment__card appointment__card--show">
     <section className="appointment__card-left">
       <h2 className="text--regular">{props.student}</h2>
@@ -23,7 +27,7 @@ export default function Show(props) {
           className="appointment__actions-button"
           src="images/trash.png"
           alt="Delete"
-          onClick={props.onDelete}
+          onClick={confirm}
         />
       </section>
     </section>
