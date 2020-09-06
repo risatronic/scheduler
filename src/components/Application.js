@@ -50,8 +50,8 @@ export default function Application(props) {
     setState({...state, appointments});
 
     const promise = axios.put(`/api/appointments/${id}`, appointment)
-    .catch(err => {
-      console.log(err);
+      .catch(err => {
+        console.log(err);
     });
 
     return promise;
@@ -59,7 +59,6 @@ export default function Application(props) {
 
   const cancelInterview = function(id){
     const appointment = { key: id, id, interview: null };
-    console.log(appointment);
     appointment.interview = null;
 
     const appointments = {
@@ -69,7 +68,7 @@ export default function Application(props) {
 
     setState({...state, appointments});
 
-    const promise = axios.delete(`/api/appointments/${id}`, appointment)
+    const promise = axios.delete(`/api/appointments/${id}`)
     .catch(err => {
       console.log(err);
     });
