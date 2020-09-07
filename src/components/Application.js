@@ -47,12 +47,18 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({...state, appointments});
+    ;
 
-    const promise = axios.put(`/api/appointments/${id}`, appointment)
+    const promise = axios
+      .put(`/api/appointments/${id}`, appointment)
+      .then(res => { 
+        setState({...state, appointments});
+        return true;
+      })
       .catch(err => {
-        console.log(err);
-    });
+        console.log('axios.put error:', err);
+        return false;
+      });
 
     return promise;
   }
@@ -66,12 +72,18 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({...state, appointments});
+    
 
-    const promise = axios.delete(`/api/appointments/${id}`)
-    .catch(err => {
-      console.log(err);
-    });
+    const promise = axios
+      .delete(`/api/appointments/${id}`)
+      .then(res => {
+        setState({...state, appointments});
+        return true;
+      })
+      .catch(err => {
+        console.log('axios.delete error: ', err);
+        return false;
+      });
 
     return promise;
   }

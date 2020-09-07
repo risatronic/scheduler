@@ -5,6 +5,7 @@ import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 import useVisualMode from "../../hooks/useVisualMode";
 
@@ -18,13 +19,26 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM";
   const DELETING = "DELETING";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+  /*below functions intentionally declared vs anonymous for 
+  readability following mentor advice*/
+
+  function confirm() {
+    transition(CONFIRM);
+  }
+
   function create() {
     transition(CREATE);
+  }
+
+  function edit(){
+    transition(EDIT);
   }
 
   function save(name, interviewer) {
@@ -33,25 +47,30 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(SAVING);
+    transition(SAVING, true);
 
     props.bookInterview(props.id, interview)
-      .then(transition(SHOW));
-  }
-
-  function confirm() {
-    transition(CONFIRM);
+      .then(res => {
+        if (res) {
+          transition(SHOW);
+        } else {
+          transition(ERROR_SAVE, true);
+        }
+      });
   }
 
   function deleteID() {
-    transition(DELETING);
+    transition(DELETING, true);
 
     props.cancelInterview(props.id)
-      .then(transition(EMPTY));
-  }
+      .then(res => {
+        if (res) {
+          transition(EMPTY);
+        } else {
+          transition(ERROR_DELETE, true);
+        }
+      })
 
-  function edit(){
-    transition(EDIT);
   }
 
   return (
@@ -78,10 +97,10 @@ export default function Appointment(props) {
       )}
       {mode === SAVING && <Status message="Saving..." />}
       {mode === CONFIRM && (
-      <Confirm 
-        onConfirm={deleteID} 
-        message="Cancel this appointment?" 
-      />
+        <Confirm
+          onConfirm={deleteID}
+          message="Cancel this appointment?"
+        />
       )}
       {mode === DELETING && <Status message="Deleting..." />}
       {mode === EDIT && (
@@ -91,6 +110,18 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Could not save appointment."
+          onClose={back}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error
+          message="Could not cancel appointment."
+          onClose={back}
         />
       )}
     </article>
