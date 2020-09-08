@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 const axios = require('axios');
 
-export default function useApplicationData(){
-  
+export default function useApplicationData() {
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -28,7 +28,7 @@ export default function useApplicationData(){
     })
   }, []);
 
-  const bookInterview = function(id, interview) {
+  const bookInterview = function (id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -41,8 +41,16 @@ export default function useApplicationData(){
 
     const promise = axios
       .put(`/api/appointments/${id}`, appointment)
-      .then(res => { 
-        setState({...state, appointments});
+      .then(res => {
+        const days = state.days.map((day) => {
+          const dayToReturn = { ...day };
+          if (dayToReturn.appointments.includes(id)) {
+            dayToReturn.spots--;
+          }
+          return dayToReturn;
+        });
+
+        setState({ ...state, days, appointments });
         return true;
       })
       .catch(err => {
@@ -53,10 +61,10 @@ export default function useApplicationData(){
     return promise;
   }
 
-  const cancelInterview = function(id){
-    const appointment = { key: id, id, interview: null };
+  const cancelInterview = function (id) {
+    const appointment = { ...state.appointments[id] };
     appointment.interview = null;
-
+    
     const appointments = {
       ...state.appointments,
       [id]: appointment
@@ -65,7 +73,15 @@ export default function useApplicationData(){
     const promise = axios
       .delete(`/api/appointments/${id}`)
       .then(res => {
-        setState({...state, appointments});
+        const days = state.days.map((day) => {
+          const dayToReturn = { ...day };
+          if (dayToReturn.appointments.includes(id)) {
+            dayToReturn.spots++;
+          }
+          return dayToReturn;
+        });
+
+        setState({ ...state, days, appointments });
         return true;
       })
       .catch(err => {
