@@ -8,7 +8,6 @@ export default function Show(props) {
   }
 
   function edit(){
-    console.log(props);
     props.onEdit();
   }
 

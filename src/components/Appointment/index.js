@@ -54,7 +54,7 @@ export default function Appointment(props) {
         if (res) {
           transition(SHOW);
         } else {
-          transition(ERROR_SAVE, true);
+          transition(ERROR_SAVE);
         }
       });
   }
