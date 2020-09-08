@@ -1,5 +1,6 @@
 import React from "react";
 import "components/InterviewerListItem.scss";
+import { checkPropTypes } from "prop-types";
 
 const classNames = require('classnames');
 
@@ -18,6 +19,7 @@ export default function InterviewerListItem(props) {
       className="interviewers__item-image"
       src={props.avatar}
       alt={props.name}
+      data-testid="interviewer-selector"
     />
     {props.selected ? props.name : ""}
   </li>;

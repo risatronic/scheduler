@@ -10,21 +10,21 @@ export default function Form(props) {
 
   const edit = props.edit;
 
-  const reset = function() {
+  const reset = function () {
     setName("");
     setInterviewer(null);
   }
 
-  const cancel = function() {
+  const cancel = function () {
     reset();
     props.onCancel();
   }
 
-  const save = function() {
+  const save = function () {
     props.onSave(name, interviewer, edit);
   }
 
-  const error = function() {
+  const error = function () {
     if (name === "") {
       setMessage("Student name cannot be blank");
     }
@@ -47,10 +47,9 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             value={name}
             onChange={(event) => {
-                setName(event.target.value);
-                setMessage("");
-              }
-            }
+              setName(event.target.value);
+              setMessage("");
+            }}
             data-testid="student-name-input"
           />
           <div
@@ -64,6 +63,7 @@ export default function Form(props) {
           interviewers={props.interviewers}
           value={interviewer}
           onChange={(event) => setInterviewer(event)}
+          data-testid="interviewer-selector"
         />
       </section>
       <section className="appointment__card-right">
