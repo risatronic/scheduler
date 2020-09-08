@@ -3,9 +3,11 @@ import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
 
-export default function (props){
+export default function (props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+
+  const edit = props.edit;
 
   const reset = function() {
     setName("");
@@ -17,8 +19,8 @@ export default function (props){
     props.onCancel();
   }
 
-  const save = function(){
-    props.onSave(name, interviewer);
+  const save = function() {
+    props.onSave(name, interviewer, edit);
   }
 
   return (

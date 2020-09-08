@@ -37,11 +37,11 @@ export default function Appointment(props) {
     transition(CREATE);
   }
 
-  function edit(){
+  function edit() {
     transition(EDIT);
   }
 
-  function save(name, interviewer) {
+  function save(name, interviewer, edit) {
     const interview = {
       student: name,
       interviewer
@@ -49,7 +49,7 @@ export default function Appointment(props) {
 
     transition(SAVING, true);
 
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, edit)
       .then(res => {
         if (res) {
           transition(SHOW);
@@ -93,6 +93,7 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}
+          edit={false}
         />
       )}
       {mode === SAVING && <Status message="Saving..." />}
@@ -110,6 +111,7 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}
+          edit={true}
         />
       )}
       {mode === ERROR_SAVE && (

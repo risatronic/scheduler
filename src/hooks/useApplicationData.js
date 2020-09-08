@@ -28,7 +28,7 @@ export default function useApplicationData() {
     })
   }, []);
 
-  const bookInterview = function (id, interview) {
+  const bookInterview = function(id, interview, edit) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -42,15 +42,19 @@ export default function useApplicationData() {
     const promise = axios
       .put(`/api/appointments/${id}`, appointment)
       .then(res => {
-        const days = state.days.map((day) => {
-          const dayToReturn = { ...day };
-          if (dayToReturn.appointments.includes(id)) {
-            dayToReturn.spots--;
-          }
-          return dayToReturn;
-        });
 
-        setState({ ...state, days, appointments });
+        if (!edit) {
+          const days = state.days.map((day) => {
+            const dayToReturn = { ...day };
+            if (dayToReturn.appointments.includes(id)) {
+              dayToReturn.spots--;
+            }
+            return dayToReturn;
+          });
+          setState({ ...state, days, appointments });
+        } else {
+          setState({ ...state, appointments });
+        }
         return true;
       })
       .catch(err => {
@@ -61,10 +65,10 @@ export default function useApplicationData() {
     return promise;
   }
 
-  const cancelInterview = function (id) {
+  const cancelInterview = function(id) {
     const appointment = { ...state.appointments[id] };
     appointment.interview = null;
-    
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
