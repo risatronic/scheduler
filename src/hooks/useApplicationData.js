@@ -42,7 +42,6 @@ export default function useApplicationData() {
     const promise = axios
       .put(`/api/appointments/${id}`, appointment)
       .then(res => {
-
         if (!edit) {
           const days = state.days.map((day) => {
             const dayToReturn = { ...day };
