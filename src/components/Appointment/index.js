@@ -61,7 +61,7 @@ export default function Appointment(props) {
 
   function deleteID() {
     transition(DELETING, true);
-
+    
     props.cancelInterview(props.id)
       .then(res => {
         if (res) {
@@ -76,6 +76,7 @@ export default function Appointment(props) {
   return (
     <article
       className="appointment"
+      data-testid="appointment"
     >
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={create} />}

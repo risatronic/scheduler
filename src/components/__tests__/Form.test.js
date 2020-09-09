@@ -16,10 +16,6 @@ describe("Form", () => {
     }
   ];
 
-  it("renders without crashing", () => {
-    render(<Form interviewers={interviewers} />);
-  });
-
   it("renders without student name if not provided", () => {
     const { getByPlaceholderText } = render(
       <Form interviewers={interviewers} />
@@ -123,7 +119,7 @@ describe("Form", () => {
 
     fireEvent.click(getByTestId("interviewer-selector"), {
       target: {id: 1}
-    })
+    });
   
     fireEvent.click(getByText("Save"));
 
@@ -142,6 +138,34 @@ describe("Form", () => {
   
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1, false);
+  });
+
+  it("calls onCancel and resets the input field", () => {
+    const onCancel = jest.fn();
+    const { getByText, getByPlaceholderText, queryByText } = render(
+      <Form
+        interviewers={interviewers}
+        name="Lydia Mill-Jones"
+        interviewer={1}
+        onSave={jest.fn()}
+        onCancel={onCancel}
+      />
+    );
+  
+    fireEvent.click(getByText("Save"));
+  
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+  
+    fireEvent.click(getByText("Cancel"));
+  
+    expect(queryByText(/student name cannot be blank/i)).toBeNull();
+    expect(queryByText(/must select an interviewer/i)).toBeNull();
+
+    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+  
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
 

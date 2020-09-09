@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-const axios = require('axios');
+import axios from "axios";
 
 export default function useApplicationData() {
 
@@ -15,7 +15,7 @@ export default function useApplicationData() {
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
-      axios.get('api/appointments'),
+      axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then(all => {
       setState(prev =>
@@ -28,7 +28,7 @@ export default function useApplicationData() {
     })
   }, []);
 
-  const bookInterview = function(id, interview, edit) {
+  const bookInterview = function (id, interview, edit) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -65,7 +65,7 @@ export default function useApplicationData() {
     return promise;
   }
 
-  const cancelInterview = function(id) {
+  const cancelInterview = function (id) {
     const appointment = { ...state.appointments[id] };
     appointment.interview = null;
 
