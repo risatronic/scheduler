@@ -7,9 +7,9 @@
  ## Final Product
 
 !["Creating a new appointment"](https://github.com/risatronic/scheduler/blob/master/docs/1-create.png)
-![]()
-![]()
-![]()
+![Appointment has been created and spots decremented](https://github.com/risatronic/scheduler/blob/master/docs/2-view_delete.png)
+![Confirm deletion](https://github.com/risatronic/scheduler/blob/master/docs/3-confirm.png)
+![Appointment gone and spots incremented](https://github.com/risatronic/scheduler/blob/master/docs/4-deleted.png)
 
 ## Setup
 
