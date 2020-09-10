@@ -6,7 +6,7 @@
 
  ## Final Product
 
-![]()
+!["Creating a new appointment"](https://github.com/risatronic/scheduler/blob/master/docs/1-create.png)
 ![]()
 ![]()
 ![]()
