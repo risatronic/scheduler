@@ -1,6 +1,5 @@
 import React from "react";
 import "components/InterviewerListItem.scss";
-import { checkPropTypes } from "prop-types";
 
 const classNames = require('classnames');
 

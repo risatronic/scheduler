@@ -1,9 +1,7 @@
 import React from "react";
-
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
-import { action } from "@storybook/addon-actions/dist/preview";
 
 afterEach(cleanup);
 
