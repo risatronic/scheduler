@@ -4,7 +4,7 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  function transition(newMode, replace = false) {
+  const transition = function(newMode, replace = false) {
     if (replace) {
       setHistory([newMode, ...history.slice(1)]);
     } else {
@@ -12,14 +12,14 @@ export default function useVisualMode(initial) {
     }
 
     setMode(newMode);
-  }
+  };
 
-  function back() {
+  const back = function() {
     if (history.length > 1) {
       setHistory([...history.slice(1)]);
       setMode(history[1]);
     }
-  }
+  };
 
   return { mode, transition, back };
-}
+};

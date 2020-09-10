@@ -29,19 +29,19 @@ export default function Appointment(props) {
   /*below functions intentionally declared vs anonymous for 
   readability following mentor advice*/
 
-  function confirm() {
+  const confirm = function() {
     transition(CONFIRM);
-  }
+  };
 
-  function create() {
+  const create = function() {
     transition(CREATE);
-  }
+  };
 
-  function edit() {
+  const edit = function() {
     transition(EDIT);
-  }
+  };
 
-  function save(name, interviewer, edit) {
+  const save = function(name, interviewer, edit) {
     const interview = {
       student: name,
       interviewer
@@ -57,9 +57,9 @@ export default function Appointment(props) {
           transition(ERROR_SAVE);
         }
       });
-  }
+  };
 
-  function deleteID() {
+  const deleteID = function() {
     transition(DELETING, true);
     
     props.cancelInterview(props.id)
@@ -69,9 +69,8 @@ export default function Appointment(props) {
         } else {
           transition(ERROR_DELETE, true);
         }
-      })
-
-  }
+      });
+  };
 
   return (
     <article

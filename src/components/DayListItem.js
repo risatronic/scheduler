@@ -10,22 +10,9 @@ export default function DayListItem(props) {
   });
 
   const formatSpots = function(spots) {
-    let spotString;
-
-    switch (spots) {
-      case 0:
-        spotString = "No spots remaining";
-        break;
-      case 1:
-        spotString = "1 spot remaining";
-        break;
-      default:
-        spotString = `${spots} spots remaining`;
-        break;
-    };
+    const spotString = (spots === 1 ? "1 spot" : ((spots === 0 ? "No" : `${spots}`) +  " spots")) + " remaining";
     return spotString;
   };
-
 
   return (
     <li
@@ -39,4 +26,4 @@ export default function DayListItem(props) {
       <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>
   );
-}
+};

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -13,16 +12,16 @@ export default function Form(props) {
   const reset = function () {
     setName("");
     setInterviewer(null);
-  }
+  };
 
   const cancel = function () {
     reset();
     props.onCancel();
-  }
+  };
 
   const save = function () {
     props.onSave(name, interviewer, edit);
-  }
+  };
 
   const error = function () {
     if (name === "") {
@@ -31,7 +30,7 @@ export default function Form(props) {
     if (interviewer === null) {
       setMessage("Must select an interviewer");
     }
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -81,4 +80,4 @@ export default function Form(props) {
       </section>
     </main>
   );
-}
+};

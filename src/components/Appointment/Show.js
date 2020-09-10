@@ -1,13 +1,11 @@
 import React from "react";
 
-
-
 export default function Show(props) {
-  function confirm(){
+  const confirm = function() {
     props.onConfirm();
   }
 
-  function edit(){
+  const edit = function() {
     props.onEdit();
   }
 
@@ -36,4 +34,4 @@ export default function Show(props) {
       </section>
     </section>
   </main>;
-}
+};
